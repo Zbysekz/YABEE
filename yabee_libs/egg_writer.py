@@ -732,15 +732,15 @@ class EGGMeshObjectData(EGGBaseObjectData):
             # Find the material assigned to that polygon:
             # First, check if that polygon has a material at all
             material = None
+            matIsFancyPBRNode = False
+            
             if face.material_index < len(self.obj_ref.data.materials):
                 material = self.obj_ref.data.materials[face.material_index]
             
-            
-            matIsFancyPBRNode = False
-            if material.use_nodes: 
-                nodeTree = material.node_tree
-                if nodeTree.nodes.get("Panda3D_RP_Diffuse_Mat"):
-                    matIsFancyPBRNode = True
+                if material.use_nodes: 
+                    nodeTree = material.node_tree
+                    if nodeTree.nodes.get("Panda3D_RP_Diffuse_Mat"):
+                        matIsFancyPBRNode = True
             if material:
                 # Check if the material has per-face textures enabled. If per-face textures
                 # are enabled, the material textures are ignored and only the active
